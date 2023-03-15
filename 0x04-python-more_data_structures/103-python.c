@@ -1,69 +1,26 @@
-#include <stdio.h>
 #include <Python.h>
 
-/**
- * print_python_bytes - Prints bytes information
- *
- * @p: Python Object
- * Return: no return
- */
-void print_python_bytes(PyObject *p)
-{
-	char *string;
-	long int size, i, limit;
+void print_list_info(PyObject *list) {
+    Py_ssize_t size = PyList_Size(list);
+    printf("List size: %zd\n", size);
 
-	printf("[.] bytes object info\n");
-	if (!PyBytes_Check(p))
-	{
-		printf("  [ERROR] Invalid Bytes Object\n");
-		return;
-	}
+    for (Py_ssize_t i = 0; i < size; i++) {
+        PyObject *item = PyList_GetItem(list, i);
+        printf("List item %zd: ", i);
 
-	size = ((PyVarObject *)(p))->ob_size;
-	string = ((PyBytesObject *)p)->ob_sval;
-
-	printf("  size: %ld\n", size);
-	printf("  trying string: %s\n", string);
-
-	if (size >= 10)
-		limit = 10;
-	else
-		limit = size + 1;
-
-	printf("  first %ld bytes:", limit);
-
-	for (i = 0; i < limit; i++)
-		if (string[i] >= 0)
-			printf(" %02x", string[i]);
-		else
-			printf(" %02x", 256 + string[i]);
-
-	printf("\n");
+        PyObject_Print(item, stdout, Py_PRINT_RAW);
+        printf("\n");
+    }
 }
 
-/**
- * print_python_list - Prints list information
- *
- * @p: Python Object
- * Return: no return
- */
-void print_python_list(PyObject *p)
-{
-	long int size, i;
-	PyListObject *list;
-	PyObject *obj;
+void print_bytes_info(PyObject *bytes) {
+    Py_ssize_t size = PyBytes_Size(bytes);
+    printf("Bytes size: %zd\n", size);
 
-	size = ((PyVarObject *)(p))->ob_size;
-	list = (PyListObject *)p;
-
-	printf("[*] Python list info\n");
-	printf("[*] Size of the Python List = %ld\n", size);
-	printf("[*] Allocated = %ld\n", list->allocated);
-
-	for (i = 0; i < size; i++)
-	{
-		obj = ((PyListObject *)p)->ob_item[i];
-		printf("Element %ld: %s\n", i, ((obj)->ob_type)->tp_name);
-		if (PyBytes_Check(obj))
-			print_python_bytes(obj);
-	}
+    const char *data = PyBytes_AsString(bytes);
+    printf("Bytes data: ");
+    for (Py_ssize_t i = 0; i < size; i++) {
+        printf("%02x ", data[i] & 0xff);
+    }
+    printf("\n");
+}
