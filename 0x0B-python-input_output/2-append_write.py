@@ -1,8 +1,15 @@
 #!/usr/bin/python3
-append_write = __import__('2-append_write').append_write
+# 4-append_write.py
+"""Defines a file-appending function."""
 
-nb_characters_added = append_write("file_append.txt", "This School is so cool!\n")
-print(nb_characters_added)
 
-guillaume@ubuntu:~/0x0B$ cat file_append.txt
-cat: file_append.txt: No such file or directory
+def append_write(filename="", text=""):
+    """Appends a string to the end of a UTF8 text file.
+    Args:
+        filename (str): The name of the file to append to.
+        text (str): The string to append to the file.
+    Returns:
+        The number of characters appended.
+    """
+    with open(filename, "a", encoding="utf-8") as f:
+        return f.write(text)
