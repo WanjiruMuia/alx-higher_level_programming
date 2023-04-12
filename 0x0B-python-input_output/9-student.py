@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# 11-student.py
+# 9-student.py
 """Defines a class Student."""
 
 
@@ -20,4 +20,3 @@ class Student:
     def to_json(self):
         """Get a dictionary representation of the Student."""
         return self.
-      
