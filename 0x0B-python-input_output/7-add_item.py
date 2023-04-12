@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+# 9-add_item.py
+"""Add all arguments to a Python list and save them to a file."""
+
 import sys
 from os import path
 from save_to_json_file import save_to_json_file
