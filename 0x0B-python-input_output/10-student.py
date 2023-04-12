@@ -1,23 +1,16 @@
 #!/usr/bin/python3
-""" My class module
-"""
+class Student:
+    def __init__(self, first_name, last_name, age):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.age = age
 
-class MyClass:
-    """ My class
-    """
-
-    score = 0
-
-    def __init__(self, name, number = 4):
-        self.__name = name
-        self.number = number
-        self.is_team_red = (self.number % 2) == 0
-
-    def win(self):
-        self.score += 1
-
-    def lose(self):
-        self.score -= 1
-
-    def __str__(self):
-        return "[MyClass] {} - {:d} => {:d}".format(self.__name, self.number, self.score)
+    def to_json(self, attrs=None):
+        if attrs is None:
+            return self.__dict__
+        else:
+            filtered_dict = {}
+            for key in attrs:
+                if hasattr(self, key):
+                    filtered_dict[key] = getattr(self, key)
+            return filtered_dict
