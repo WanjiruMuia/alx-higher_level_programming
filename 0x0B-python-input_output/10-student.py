@@ -1,13 +1,23 @@
 #!/usr/bin/python3
-Student = __import__('10-student').Student
+""" My class module
+"""
 
-student_1 = Student("John", "Doe", 23)
-student_2 = Student("Bob", "Dylan", 27)
+class MyClass:
+    """ My class
+    """
 
-j_student_1 = student_1.to_json()
-j_student_2 = student_2.to_json(['first_name', 'age'])
-j_student_3 = student_2.to_json(['middle_name', 'age'])
+    score = 0
 
-print(j_student_1)
-print(j_student_2)
-print(j_student_3)
+    def __init__(self, name, number = 4):
+        self.__name = name
+        self.number = number
+        self.is_team_red = (self.number % 2) == 0
+
+    def win(self):
+        self.score += 1
+
+    def lose(self):
+        self.score -= 1
+
+    def __str__(self):
+        return "[MyClass] {} - {:d} => {:d}".format(self.__name, self.number, self.score)
