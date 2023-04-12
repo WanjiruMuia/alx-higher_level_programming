@@ -1,6 +1,12 @@
-"""Defines a Python class-to-JSON function."""
+#!/usr/bin/python3
+MyClass = __import__('8-my_class').MyClass
+class_to_json = __import__('8-class_to_json').class_to_json
 
+m = MyClass("John")
+m.number = 89
+print(type(m))
+print(m)
 
-def class_to_json(obj):
-    """Return the dictionary represntation of a simple data structure."""
-    return obj.__dict__
+mj = class_to_json(m)
+print(type(mj))
+print(mj)
