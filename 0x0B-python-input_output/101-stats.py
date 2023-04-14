@@ -1,8 +1,4 @@
 #!/usr/bin/python3
-"""Reads from standard input and computes metrics.
-import sys
-import signal
-
 # Define a signal handler to catch keyboard interrupts
 def signal_handler(sig, frame):
     print_stats()
