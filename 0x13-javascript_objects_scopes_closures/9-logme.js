@@ -1,6 +1,6 @@
 #!/usr/bin/node
-let i = 0;
-exports.logMe = function (item) {
-  console.log(i + ': ' + item);
-  i++;
-};
+const logMe = require('./9-logme').logMe;
+
+logMe("Hello");
+logMe("Best");
+logMe("School");
