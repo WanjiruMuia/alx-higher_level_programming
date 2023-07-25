@@ -1,11 +1,17 @@
-#!/usr/bin/node
+import sys
 
-const fs = require('fs');
+def read_and_print_file_content(file_path):
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            content = file.read()
+            print(content)
+    except Exception as e:
+        print(f"An error occurred while reading the file: {e}")
 
-fs.readFile(process.argv[2], 'utf-8', function (err, result) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(result);
-  }
-});
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python script.py <file_path>")
+    else:
+        file_path = sys.argv[1]
+        read_and_print_file_content(file_path)
+
