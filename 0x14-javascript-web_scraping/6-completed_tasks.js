@@ -1,11 +1,25 @@
 #!/usr/bin/node
 
-const fs = require('fs');
+const request = require('request');
 
-fs.readFile(process.argv[2], 'utf8', function (err, data) {
+request(process.argv[2], function (err, _res, body) {
   if (err) {
     console.log(err);
   } else {
-    process.stdout.write(data);
+    const completedTasksByUsers = {};
+    body = JSON.parse(body);
+
+    for (let i = 0; i < body.length; ++i) {
+      const userId = body[i].userId;
+      const completed = body[i].completed;
+
+      if (completed && !completedTasksByUsers[userId]) {
+        completedTasksByUsers[userId] = 0;
+      }
+
+      if (completed) ++completedTasksByUsers[userId];
+    }
+
+    console.log(completedTasksByUsers);
   }
 });
